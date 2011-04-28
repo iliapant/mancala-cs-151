@@ -1,6 +1,7 @@
-package view;
+package model;
 
 import java.awt.geom.Ellipse2D;
+
 
 public class MancalaPit extends MancalaShape
 {
