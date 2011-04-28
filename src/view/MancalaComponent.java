@@ -13,6 +13,10 @@ import java.util.ArrayList;
 
 import javax.swing.JComponent;
 
+import model.MancalaPit;
+import model.MancalaShape;
+import model.Pit;
+
 @SuppressWarnings("serial")
 public class MancalaComponent extends JComponent
 {
