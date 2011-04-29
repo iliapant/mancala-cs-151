@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -15,9 +17,12 @@ public class GameModel implements ChangeListener
 	public static final int PLAYER_B_MANCALA = 13;
 	public static enum GameState {PLACING, ONGOING, ENDED};
 	public static enum Player {A, B};
+	
 	private int[] pits;
 	private Player currentPlayer;
 	private GameState currentState;
+	
+	private ArrayList<ChangeListener> listeners;
 	
 	/**
 	 * Basic Constructor of a GameModel.
@@ -27,6 +32,30 @@ public class GameModel implements ChangeListener
 		pits = new int[PITS_NUM];
 		currentPlayer = Player.A;
 		currentState = GameState.PLACING;
+		
+		listeners = new ArrayList<ChangeListener>();
+	}
+	
+	/**
+	 * Attach a listener to the model.
+	 * 
+	 * @param c
+	 */
+	public void attach(ChangeListener c)
+	{
+		listeners.add(c);
+	}
+ 
+	/**
+	 * Used when there is a change in the model,
+	 * to notify all listeners.
+	 */
+	private void notifyAllListeners()
+	{
+		for (ChangeListener c : listeners)
+		{
+			c.stateChanged(new ChangeEvent(this));
+		}
 	}
 	
 	/**
@@ -72,9 +101,24 @@ public class GameModel implements ChangeListener
 		
 		return true;
 	}
+	
+	/**
+	 * Given a pitIndex, makes the move
+	 * and notify that the model is changed.
+	 * 
+	 * Pre-condition: is a valid move.
+	 * 
+	 * @param pitIndex - the pit
+	 */
 	public void makeMove(int pitIndex)
 	{
+		/**
+		 * Take stones in hand and move counter-clockwise
+		 * and place them.
+		 */
 		
+		// Notify all Listeners
+		this.notifyAllListeners();
 	}
 	@Override
 	public void stateChanged(ChangeEvent e)
