@@ -1,10 +1,13 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,15 +16,22 @@ import javax.swing.JPanel;
 
 import model.GameModel;
 
+/**
+ * Frame for the mancala game
+ *
+ */
 public class GameFrame
 {
+    /**
+     * creates a new GameFrame
+     */
     public GameFrame()
     {
         buttonsVisible = new boolean[2]; //holds if the buttons are visible. if they are both false display board
-        
         //initialize to true for beginning of game
         buttonsVisible[0] = true;
         buttonsVisible[1] = true;
+        
         JFrame frame = new JFrame();
         final GameModel model = new GameModel();
         mancalaComponent = new MancalaComponent(model);
@@ -69,6 +79,8 @@ public class GameFrame
                 //set to red squares
                 buttonsVisible[1] = false;
                 setButtonVisible(false, stratPanel);
+                mancalaComponent.setColor(Color.RED); //sets color to red
+                mancalaComponent.setShape(new Rectangle2D.Double()); //sets to squares
             }
         });
         JButton blueButton = new JButton("Blue, circle");
@@ -80,6 +92,8 @@ public class GameFrame
                 //set to blue circles
                 buttonsVisible[1] = false;
                 setButtonVisible(false, stratPanel);
+                mancalaComponent.setColor(Color.BLUE); //sets color to blue
+                mancalaComponent.setShape(new Ellipse2D.Double()); //sets to a circle
 
             }
         });
@@ -108,6 +122,7 @@ public class GameFrame
     {
         p.setVisible(visible);
         
+        //if both are false, display the board
         if(!buttonsVisible[0] && !buttonsVisible[1])
         {
             mancalaComponent.setBoardVisible(true);

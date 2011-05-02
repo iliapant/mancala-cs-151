@@ -271,8 +271,9 @@ public class GameModel
      */
     public void setNumStones(int num)
     {
-        stones = num;
-
+        int pitLen = pits.length;
+        for(int i = 0; i < pitLen; i++)
+            pits[i] = num;
     }
     
     /**
@@ -289,6 +290,10 @@ public class GameModel
             currentState = GameState.ENDED;
     }
     
+    /**
+     * gets the pit array with amount of stones in each
+     * @return the pit array
+     */
     public int[] getPits()
     {
         return pits;
