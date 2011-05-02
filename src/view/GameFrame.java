@@ -30,6 +30,7 @@ public class GameFrame
             {
                 model.setNumStones(3);
                 setButtonVisible(false);
+                model.setCurrentState("STARTED");
             }
         });
         
@@ -41,6 +42,7 @@ public class GameFrame
             {
                 model.setNumStones(4);
                 setButtonVisible(false);
+                model.setCurrentState("STARTED");
             }
         });
         
