@@ -111,8 +111,6 @@ public class GameFrame
         setButtonVisible(true, panel);
         setButtonVisible(true, stratPanel);
         frame.setVisible(true);
-        mancalaComponent.setBoardVisible(true);
-
     }
     
     /**
