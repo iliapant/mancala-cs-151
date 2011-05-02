@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import view.GameFrame;
 
 /**
  * The model of the Mancala game.
@@ -23,7 +22,6 @@ public class GameModel
     private int[] pits;
     private Player currentPlayer;
     private GameState currentState;
-    private GameFrame frame;
     private int stones;
 
     private ArrayList<ChangeListener> listeners;
@@ -31,10 +29,9 @@ public class GameModel
     /**
      * Basic Constructor of a GameModel.
      */
-    public GameModel(GameFrame gframe)
+    public GameModel()
     {
         stones = 0;
-        frame = gframe;
         pits = new int[PITS_NUM];
         currentPlayer = Player.A;
         currentState = GameState.PLACING;
@@ -275,7 +272,7 @@ public class GameModel
     public void setNumStones(int num)
     {
         stones = num;
-        
+
     }
     
     /**
@@ -290,5 +287,10 @@ public class GameModel
             currentState = GameState.ONGOING;
         else
             currentState = GameState.ENDED;
+    }
+    
+    public int[] getPits()
+    {
+        return pits;
     }
 }

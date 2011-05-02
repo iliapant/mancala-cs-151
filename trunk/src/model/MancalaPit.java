@@ -11,4 +11,15 @@ public class MancalaPit extends MancalaShape
         Ellipse2D.Double mancala = new Ellipse2D.Double(x, y, width, height);
         super.add(mancala);
     }
+    /*
+    public void setStones(int num)
+    {
+        super.setStones(num);
+    }
+    
+    public int getStones()
+    {
+        return super.getStones();
+    }
+    */
 }
