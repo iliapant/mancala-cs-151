@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
@@ -15,8 +14,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import model.GameModel;
-import model.MancalaPitShape;
-import model.PitShape;
 import model.PitShape;
 import model.ShapeFormatter;
 
@@ -33,10 +30,15 @@ public class MancalaComponent extends JComponent implements ChangeListener
     public MancalaComponent(GameModel aModel, ShapeFormatter formatter)
     {
         model = aModel;
-        pits = new ArrayList<PitShape>();
+        this.formatter = formatter;
+        computeBoard();
+    }
+    
+    private void computeBoard()
+    {
+    	pits = new ArrayList<PitShape>();
         shapes = new ArrayList<Shape>();
-        
-        Rectangle2D.Double boardShape = new Rectangle2D.Double(20, 20, 950, 670); //the board shape
+    	Rectangle2D.Double boardShape = new Rectangle2D.Double(20, 20, 950, 670); //the board shape
         
         //variables for pit locations
         final int PIT_WIDTH = 100;
@@ -49,39 +51,56 @@ public class MancalaComponent extends JComponent implements ChangeListener
         Color c = formatter.formatPitColor();
         //top pits
         PitShape p0 = new PitShape(PIT_WIDTH + PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
-        p0.setShape(formatter.formatPitShape(p1));
+        p0.setShape(formatter.formatPitShape(p0));
         
         PitShape p1 = new PitShape(2*PIT_WIDTH + PIT_WIDTH/2, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c); //adds a pit 1
-        p1.setShape(formatter.formatPitShape(p2));
+        p1.setShape(formatter.formatPitShape(p1));
 
         PitShape p2 = new PitShape(3*PIT_WIDTH + 3*PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c ); //adds a pit 2
-        p2.setShape(formatter.formatPitShape(p3));
+        p2.setShape(formatter.formatPitShape(p2));
 
         PitShape p3 = new PitShape(5*PIT_WIDTH, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c); //adds a pit 3
-        p3.setShape(formatter.formatPitShape(p4));
+        p3.setShape(formatter.formatPitShape(p3));
 
         PitShape p4 = new PitShape(6*PIT_WIDTH + PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c); //adds a pit 4
-        p4.setShape(formatter.formatPitShape(p5));
+        p4.setShape(formatter.formatPitShape(p4));
 
         PitShape mancalaPit1 = new PitShape(7*PIT_WIDTH + PIT_WIDTH/2, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c); //adds a pit 5
-        mancalaPit1.setShape(formatter.formatPitShape(p6));
+        mancalaPit1.setShape(formatter.formatPitShape(mancalaPit1));
 
         addShape(p0);
         addShape(p1);
         addShape(p2);
         addShape(p3);
         addShape(p4);
-        addShape(p5);
+        addShape(mancalaPit1);
         
         //bottom pits
-        addShape(new PitShape(PIT_WIDTH + PIT_WIDTH/4, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit 7
-        addShape(new PitShape(2*PIT_WIDTH + PIT_WIDTH/2, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit 8
-        addShape(new PitShape(3*PIT_WIDTH + 3*PIT_WIDTH/4, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit 9
-        addShape(new PitShape(5*PIT_WIDTH, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit 10
-        addShape(new PitShape(6*PIT_WIDTH + PIT_WIDTH/4, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit 11
-        addShape(new PitShape(7*PIT_WIDTH + PIT_WIDTH/2, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit 12
-        //2nd mancala pit 13
-        addShape(new MancalaPitShape((int)boardShape.getWidth()-PIT_WIDTH, 120, PIT_WIDTH, 3*PIT_HEIGHT));
+        PitShape p7 = new PitShape(PIT_WIDTH + PIT_WIDTH/4, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
+        p7.setShape(formatter.formatPitShape(p7));
+        
+        PitShape p8 = new PitShape(2*PIT_WIDTH + PIT_WIDTH/2, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
+        p8.setShape(formatter.formatPitShape(p8));
+        
+        PitShape p9 = new PitShape(3*PIT_WIDTH + 3*PIT_WIDTH/4, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
+        p9.setShape(formatter.formatPitShape(p9));
+        PitShape p10 = new PitShape(5*PIT_WIDTH, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
+        p10.setShape(formatter.formatPitShape(p10));
+        PitShape p11 = new PitShape(6*PIT_WIDTH + PIT_WIDTH/4, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
+        p11.setShape(formatter.formatPitShape(p11));
+        PitShape p12 = new PitShape(7*PIT_WIDTH + PIT_WIDTH/2, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
+        p12.setShape(formatter.formatPitShape(p12));
+        PitShape mancala2 = new PitShape((int)boardShape.getWidth()-PIT_WIDTH, 120, PIT_WIDTH, 3*PIT_HEIGHT, c);
+        mancala2.setShape(formatter.formatPitShape(mancala2));
+        
+        addShape(p7);
+        addShape(p8);
+        addShape(p9);
+        addShape(p10);
+        addShape(p11);
+        addShape(p12);
+        addShape(mancala2);
+       
 
         addMouseListener(new MouseAdapter()
         {
@@ -101,7 +120,6 @@ public class MancalaComponent extends JComponent implements ChangeListener
         shapes.add(boardShape);
         setVisible(false);
     }
-    
     /**
      * adds a new shape (pit or mancala) to the component
      * @param shape the shape to be added
@@ -160,6 +178,7 @@ public class MancalaComponent extends JComponent implements ChangeListener
     public void setFormatter(ShapeFormatter sf)
     {
         formatter = sf;
+        computeBoard();
     }
     
 
