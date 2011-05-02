@@ -11,4 +11,15 @@ public class Pit extends MancalaShape
         Ellipse2D.Double pit = new Ellipse2D.Double(x, y, width, height);
         super.add(pit);
     }
+    /*
+    public void setStones(int num)
+    {
+        super.setStones(num);
+    }
+    
+    public int getStones()
+    {
+        return super.getStones();
+    }
+    */
 }

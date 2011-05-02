@@ -56,6 +56,12 @@ public class MancalaShape
         return stones;
     }
     
+    public void setStones(int num)
+    {
+        stones = num;
+    }
+    
+    
     /*
     
     public int getX()
