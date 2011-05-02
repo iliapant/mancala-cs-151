@@ -25,7 +25,7 @@ public class MancalaComponent extends JComponent
         pits = new ArrayList<MancalaShape>();
         shapes = new ArrayList<Shape>();
         
-        Rectangle2D.Double boardShape = new Rectangle2D.Double(20, 20, 900, 670); //the board shape
+        Rectangle2D.Double boardShape = new Rectangle2D.Double(20, 20, 950, 670); //the board shape
         
         //variables for pit locations
         final int PIT_WIDTH = 100;
@@ -35,20 +35,24 @@ public class MancalaComponent extends JComponent
         
         setSize(920, 600);
         //top pits
-        addShape(new Pit(2*PIT_WIDTH, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
-        addShape(new Pit(3*PIT_WIDTH + PIT_WIDTH/2, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
+        addShape(new Pit(PIT_WIDTH + PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
+        addShape(new Pit(2*PIT_WIDTH + PIT_WIDTH/2, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
+        addShape(new Pit(3*PIT_WIDTH + 3*PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
         addShape(new Pit(5*PIT_WIDTH, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
-        addShape(new Pit(6*PIT_WIDTH + PIT_WIDTH/2, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
-        
+        addShape(new Pit(6*PIT_WIDTH + PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
+        addShape(new Pit(7*PIT_WIDTH + PIT_WIDTH/2, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
+
         //bottom pits
-        addShape(new Pit(2*PIT_WIDTH, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
-        addShape(new Pit(3*PIT_WIDTH + PIT_WIDTH/2, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
+        addShape(new Pit(PIT_WIDTH + PIT_WIDTH/4, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
+        addShape(new Pit(2*PIT_WIDTH + PIT_WIDTH/2, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
+        addShape(new Pit(3*PIT_WIDTH + 3*PIT_WIDTH/4, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
         addShape(new Pit(5*PIT_WIDTH, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
-        addShape(new Pit(6*PIT_WIDTH + PIT_WIDTH/2, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
-        
+        addShape(new Pit(6*PIT_WIDTH + PIT_WIDTH/4, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
+        addShape(new Pit(7*PIT_WIDTH + PIT_WIDTH/2, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit
+
         //mancala pits
-        addShape(new MancalaPit(PIT_WIDTH-20, 120, PIT_WIDTH, 3*PIT_HEIGHT));
-        addShape(new MancalaPit((int)boardShape.getWidth()-PIT_WIDTH-40, 120, PIT_WIDTH, 3*PIT_HEIGHT));
+        addShape(new MancalaPit(PIT_WIDTH/4, 120, PIT_WIDTH, 3*PIT_HEIGHT));
+        addShape(new MancalaPit((int)boardShape.getWidth()-PIT_WIDTH, 120, PIT_WIDTH, 3*PIT_HEIGHT));
 
         addMouseListener(new MouseAdapter()
         {

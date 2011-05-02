@@ -1,6 +1,13 @@
 package view;
 import java.awt.BorderLayout;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import model.GameModel;
+
 import view.MancalaComponent;
 
 /**
@@ -10,18 +17,12 @@ public class Client
 {
 
     /**
-     * Starts the game
+     * Creates the frame
      * @param args the args
      */
     public static void main(String[] args)
     {
-        JFrame frame = new JFrame();
-        MancalaComponent component = new MancalaComponent();
-        frame.setSize(1000, 750);
-        frame.setTitle("Mancala");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(component, BorderLayout.CENTER);
-        frame.setVisible(true);
+        GameFrame frame = new GameFrame();
     }
 
 }
