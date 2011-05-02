@@ -20,7 +20,7 @@ public class PitShape
      * @param width the width
      * @param c the color
      */
-    public PitShape(int x, int y, int height, int width, Color c)
+    public PitShape(int x, int y, int width, int height, Color c)
     {
         this.x = x;
         this.y = y;
@@ -39,7 +39,16 @@ public class PitShape
         g.draw(shape);
         //TODO.: draw stones
         
-        
+    }
+    
+    /**
+     * fills the composite shape
+     * @param g the graphics
+     */
+    public void fill(Graphics2D g)
+    {
+        g.setColor(c);
+        g.fill(shape);
     }
     
     public boolean contains(Point2D aPoint)

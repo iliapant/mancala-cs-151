@@ -31,14 +31,15 @@ public class MancalaComponent extends JComponent implements ChangeListener
     {
         model = aModel;
         this.formatter = formatter;
-        computeBoard();
+        setVisible(false);
+        //computeBoard();
     }
     
     private void computeBoard()
     {
     	pits = new ArrayList<PitShape>();
         shapes = new ArrayList<Shape>();
-    	Rectangle2D.Double boardShape = new Rectangle2D.Double(20, 20, 950, 670); //the board shape
+    	Rectangle2D.Double boardShape = new Rectangle2D.Double(5, 20, 965, 670); //the board shape
         
         //variables for pit locations
         final int PIT_WIDTH = 100;
@@ -65,15 +66,19 @@ public class MancalaComponent extends JComponent implements ChangeListener
         PitShape p4 = new PitShape(6*PIT_WIDTH + PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c); //adds a pit 4
         p4.setShape(formatter.formatPitShape(p4));
 
-        PitShape mancalaPit1 = new PitShape(7*PIT_WIDTH + PIT_WIDTH/2, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c); //adds a pit 5
-        mancalaPit1.setShape(formatter.formatPitShape(mancalaPit1));
+        PitShape p5 = new PitShape(7*PIT_WIDTH + PIT_WIDTH/2, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c); //adds a pit 5
+        p5.setShape(formatter.formatPitShape(p5));
+        
+        PitShape mancala1 = new PitShape(10, 120, PIT_WIDTH, 3*PIT_HEIGHT, c);
+        mancala1.setShape(formatter.formatPitShape(mancala1));
 
         addShape(p0);
         addShape(p1);
         addShape(p2);
         addShape(p3);
         addShape(p4);
-        addShape(mancalaPit1);
+        addShape(p5);
+        addShape(mancala1);
         
         //bottom pits
         PitShape p7 = new PitShape(PIT_WIDTH + PIT_WIDTH/4, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
@@ -118,7 +123,6 @@ public class MancalaComponent extends JComponent implements ChangeListener
         });
         
         shapes.add(boardShape);
-        setVisible(false);
     }
     /**
      * adds a new shape (pit or mancala) to the component
@@ -140,7 +144,7 @@ public class MancalaComponent extends JComponent implements ChangeListener
             g2.draw(s);
         
         for(PitShape p: pits)
-            p.draw(g2);
+            p.fill(g2);
         
     }
     
@@ -169,11 +173,7 @@ public class MancalaComponent extends JComponent implements ChangeListener
     {
         setVisible(visible);
     }
-    
-    public void format()
-    {
-        
-    }
+
     
     public void setFormatter(ShapeFormatter sf)
     {
