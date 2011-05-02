@@ -11,7 +11,7 @@ import java.awt.geom.Point2D;
  * super class MancalaShape. Creates a pit or mancala
  *
  */
-public class MancalaShape
+public class PitShape
 {
     /**
      * Creates a new Mancala shape
@@ -20,25 +20,15 @@ public class MancalaShape
      * @param width the width
      * @param c the color
      */
-    public MancalaShape(int x, int y, int height, int width, Color c)
+    public PitShape(int x, int y, int height, int width, Color c)
     {
-        shape = null;
         this.x = x;
         this.y = y;
         this.height = height;
         this.width = width;
         this.c = c;
-        path = new GeneralPath();
     }
     
-    /**
-     * adds to the general path
-     * @param aShape the Shape reference
-     */
-    public void add(Shape aShape)
-    {
-        shape = aShape;
-    }
     
     /**
      * draws the composite shape
@@ -47,6 +37,9 @@ public class MancalaShape
     public void draw(Graphics2D g)
     {
         g.draw(shape);
+        //TODO.: draw stones
+        
+        
     }
     
     public boolean contains(Point2D aPoint)
@@ -67,8 +60,16 @@ public class MancalaShape
         stones = num;
     }
     
+    public void setShape(Shape s)
+    {
+        shape = s;
+    }
     
-    /*
+    public Shape getShape()
+    {
+        return shape;
+    }
+    
     
     public int getX()
     {
@@ -89,8 +90,7 @@ public class MancalaShape
     {
         return height;
     }
-    */
-    private GeneralPath path;
+    
     private int x;
     private int y;
     private int width;
