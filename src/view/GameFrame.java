@@ -19,7 +19,7 @@ public class GameFrame
     {
         JFrame frame = new JFrame();
         MancalaComponent mancalaComponent = new MancalaComponent();
-        GameModel model = new GameModel(this);
+        final GameModel model = new GameModel(this);
         panel = new JPanel();        
         //add buttons 3 and 4
         JButton button3 = new JButton("3");
@@ -28,8 +28,8 @@ public class GameFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                stones = 3;
-                
+                model.setNumStones(3);
+                setButtonVisible(false);
             }
         });
         
@@ -39,8 +39,8 @@ public class GameFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                stones = 4;
-                
+                model.setNumStones(4);
+                setButtonVisible(false);
             }
         });
         
@@ -68,5 +68,4 @@ public class GameFrame
     }
     
     private JPanel panel;
-    private int stones;
 }

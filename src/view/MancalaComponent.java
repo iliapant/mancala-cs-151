@@ -17,9 +17,16 @@ import model.MancalaPit;
 import model.MancalaShape;
 import model.Pit;
 
+/**
+ * Creates the component that the shapes/board/buttons are painted on
+ *
+ */
 @SuppressWarnings("serial")
 public class MancalaComponent extends JComponent
 {
+    /**
+     * Creates a new MancalaComponent
+     */
     public MancalaComponent()
     {
         pits = new ArrayList<MancalaShape>();
@@ -74,11 +81,18 @@ public class MancalaComponent extends JComponent
         repaint();
     }
     
+    /**
+     * adds a new shape (pit or mancala) to the component
+     * @param shape the shape to be added
+     */
     public void addShape(MancalaShape shape)
     {
         pits.add(shape);        
     }
     
+    /**
+     * paints the component
+     */
     public void paintComponent(Graphics g)
     {
         Graphics2D g2 = (Graphics2D) g;
