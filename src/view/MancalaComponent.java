@@ -1,10 +1,12 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
@@ -29,6 +31,8 @@ public class MancalaComponent extends JComponent implements ChangeListener
      */
     public MancalaComponent(GameModel aModel)
     {
+        color = Color.BLACK;
+        shape = null;
         model = aModel;
         pits = new ArrayList<MancalaShape>();
         shapes = new ArrayList<Shape>();
@@ -42,6 +46,7 @@ public class MancalaComponent extends JComponent implements ChangeListener
         final double BOTTOM_PIT_Y = boardShape.getHeight() - TOP_PIT_Y - PIT_HEIGHT;
         
         setSize(920, 600);
+        
         //top pits
         addShape(new Pit(PIT_WIDTH + PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit 0
         addShape(new Pit(2*PIT_WIDTH + PIT_WIDTH/2, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit 1
@@ -122,10 +127,16 @@ public class MancalaComponent extends JComponent implements ChangeListener
         repaint();
     }
     
+    /**
+     * sets the board to be visible or not
+     * @param visible true if visible
+     */
     public void setBoardVisible(boolean visible)
     {
         setVisible(visible);
     }
+    
+
     
     
     private ArrayList<Shape> shapes;

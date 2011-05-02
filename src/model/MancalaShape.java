@@ -1,12 +1,16 @@
 package model;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 
-
+/**
+ * super class MancalaShape. Creates a pit or mancala
+ *
+ */
 public class MancalaShape
 {
     /**
@@ -14,14 +18,16 @@ public class MancalaShape
      * @param x the x position
      * @param y the y position
      * @param width the width
+     * @param c the color
      */
-    public MancalaShape(int x, int y, int height, int width)
+    public MancalaShape(int x, int y, int height, int width, Color c)
     {
         shape = null;
         this.x = x;
         this.y = y;
         this.height = height;
         this.width = width;
+        this.c = c;
         path = new GeneralPath();
     }
     
@@ -91,5 +97,6 @@ public class MancalaShape
     private int height;
     private Shape shape;
     private int stones;
+    private Color c;
     
 }
