@@ -2,10 +2,10 @@ package model;
 
 import java.awt.Color;
 import java.awt.Shape;
+import java.awt.geom.Point2D;
 
 public interface ShapeFormatter
 {
-    void formatColor(Color c);
-    void formatShape(Shape s);
-    
+    Color formatPitColor();
+    Shape formatPitShape(PitShape p);
 }

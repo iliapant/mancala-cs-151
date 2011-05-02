@@ -14,7 +14,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import model.BlueSquareFormatter;
 import model.GameModel;
+import model.RedRoundFormatter;
+import model.ShapeFormatter;
 
 /**
  * Frame for the mancala game
@@ -31,10 +34,10 @@ public class GameFrame
         //initialize to true for beginning of game
         buttonsVisible[0] = true;
         buttonsVisible[1] = true;
-        
+                
         JFrame frame = new JFrame();
         final GameModel model = new GameModel();
-        mancalaComponent = new MancalaComponent(model);
+        mancalaComponent = new MancalaComponent(model, new RedRoundFormatter());
         final JPanel panel = new JPanel();        
         //add buttons 3 and 4
         JButton button3 = new JButton("3");
@@ -70,7 +73,7 @@ public class GameFrame
         
         //strategy pattern buttons
         final JPanel stratPanel = new JPanel();
-        JButton redButton = new JButton("Red, square");
+        JButton redButton = new JButton("Red, round");
         redButton.addActionListener(new ActionListener()
         {
             @Override
@@ -79,11 +82,10 @@ public class GameFrame
                 //set to red squares
                 buttonsVisible[1] = false;
                 setButtonVisible(false, stratPanel);
-                mancalaComponent.setColor(Color.RED); //sets color to red
-                mancalaComponent.setShape(new Rectangle2D.Double()); //sets to squares
+                mancalaComponent.setFormatter(new RedRoundFormatter());
             }
         });
-        JButton blueButton = new JButton("Blue, circle");
+        JButton blueButton = new JButton("Blue, square");
         blueButton.addActionListener(new ActionListener()
         {
             @Override
@@ -92,9 +94,7 @@ public class GameFrame
                 //set to blue circles
                 buttonsVisible[1] = false;
                 setButtonVisible(false, stratPanel);
-                mancalaComponent.setColor(Color.BLUE); //sets color to blue
-                mancalaComponent.setShape(new Ellipse2D.Double()); //sets to a circle
-
+                mancalaComponent.setFormatter(new BlueSquareFormatter());
             }
         });
         JLabel strategyLabel = new JLabel("Select board style");
