@@ -48,30 +48,30 @@ public class MancalaComponent extends JComponent implements ChangeListener
         
         Color c = formatter.formatPitColor();
         //top pits
-        PitShape p1 = new PitShape(PIT_WIDTH + PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
-        p1.setShape(formatter.formatPitShape(p1));
+        PitShape p0 = new PitShape(PIT_WIDTH + PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
+        p0.setShape(formatter.formatPitShape(p1));
         
-        PitShape p2 = new PitShape(2*PIT_WIDTH + PIT_WIDTH/2, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c); //adds a pit 1
-        p2.setShape(formatter.formatPitShape(p2));
+        PitShape p1 = new PitShape(2*PIT_WIDTH + PIT_WIDTH/2, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c); //adds a pit 1
+        p1.setShape(formatter.formatPitShape(p2));
 
-        PitShape p3 = new PitShape(3*PIT_WIDTH + 3*PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c ); //adds a pit 2
-        p3.setShape(formatter.formatPitShape(p3));
+        PitShape p2 = new PitShape(3*PIT_WIDTH + 3*PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c ); //adds a pit 2
+        p2.setShape(formatter.formatPitShape(p3));
 
-        PitShape p4 = new PitShape(5*PIT_WIDTH, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c); //adds a pit 3
-        p4.setShape(formatter.formatPitShape(p4));
+        PitShape p3 = new PitShape(5*PIT_WIDTH, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c); //adds a pit 3
+        p3.setShape(formatter.formatPitShape(p4));
 
-        PitShape p5 = new PitShape(6*PIT_WIDTH + PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c); //adds a pit 4
-        p5.setShape(formatter.formatPitShape(p5));
+        PitShape p4 = new PitShape(6*PIT_WIDTH + PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c); //adds a pit 4
+        p4.setShape(formatter.formatPitShape(p5));
 
-        PitShape p6 = new PitShape(7*PIT_WIDTH + PIT_WIDTH/2, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c); //adds a pit 5
-        p6.setShape(formatter.formatPitShape(p6));
+        PitShape mancalaPit1 = new PitShape(7*PIT_WIDTH + PIT_WIDTH/2, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c); //adds a pit 5
+        mancalaPit1.setShape(formatter.formatPitShape(p6));
 
+        addShape(p0);
         addShape(p1);
         addShape(p2);
         addShape(p3);
         addShape(p4);
         addShape(p5);
-        addShape(p6);
         
         //bottom pits
         addShape(new PitShape(PIT_WIDTH + PIT_WIDTH/4, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT)); //adds a pit 7
