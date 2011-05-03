@@ -38,7 +38,6 @@ public class PitShape
     public void draw(Graphics2D g)
     {
         g.draw(shape);
-        //TODO.: draw stones
 
     }
 
@@ -50,6 +49,8 @@ public class PitShape
     {
         g.setColor(c);
         g.fill(shape);
+        //TODO.: draw stones (needs to be drawn in right position)
+
         g.setColor(Color.BLACK);
         double x = 0;
         double y = 0;

@@ -175,12 +175,13 @@ public class MancalaComponent extends JComponent implements ChangeListener
     @Override
     public void stateChanged(ChangeEvent c)
     {
-        int[] pitsArr = model.getPits(); //array containing stones from gameModel
+        stones = model.getPits(); //array containing stones from gameModel
+        
         int pitSize = pits.size(); //the size of pits
         //update the pits with the stones from the model
         for(int i = 0; i < pitSize; i++)
         {
-            pits.get(i).setStones(pitsArr[i]);
+            pits.get(i).setStones(stones[i]);
         }
         
         repaint();
@@ -201,9 +202,6 @@ public class MancalaComponent extends JComponent implements ChangeListener
         formatter = sf;
         computeBoard();
     }
-    
-
-    
     
     private ArrayList<Shape> shapes;
     private ArrayList<PitShape> pits;
