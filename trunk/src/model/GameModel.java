@@ -291,11 +291,43 @@ public class GameModel
     }
     
     /**
+     * Getter for current player.
+     * @return the current player.
+     */
+    public Player getCurrentPlayer()
+    {
+    	return currentPlayer;
+    }
+    
+    /**
+     * Getter for current state.
+     * @return the current state
+     */
+    public GameState getCurrentState()
+    {
+    	return currentState;
+    }
+    
+    /**
      * gets the pit array with amount of stones in each
      * @return the pit array
      */
     public int[] getPits()
     {
         return pits;
+    }
+    
+    /**
+     * Return the score of the requested player.
+     * @param who requester player
+     * @return the score
+     */
+    public int getScore(GameModel.Player who)
+    {
+    	if (who == GameModel.Player.A)
+    		return pits[PLAYER_A_MANCALA];
+    	if (who == GameModel.Player.B)
+    		return pits[PLAYER_B_MANCALA];
+    	return 0;
     }
 }
