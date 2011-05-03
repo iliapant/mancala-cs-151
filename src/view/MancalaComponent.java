@@ -1,8 +1,10 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -169,7 +171,33 @@ public class MancalaComponent extends JComponent implements ChangeListener
         for(PitShape p: pits)
         {
             p.fill(g2);
-        }    
+        }
+        // Center label:
+        String centerText = "";
+        if (model.getCurrentState() == GameModel.GameState.ONGOING)
+        {
+        	if (model.getCurrentPlayer() == GameModel.Player.A)
+        	{
+        		centerText = "Turn: Player 1";
+        	}
+        	else
+        	{
+        		centerText = "Turn: Player 2";
+        	}
+        }
+        else if (model.getCurrentState() == GameModel.GameState.ENDED)
+        {
+        	centerText = "Final Score: " + model.getScore(GameModel.Player.A) + " vs " + model.getScore(GameModel.Player.B);
+        }
+        g.setColor(Color.RED);
+        
+        Font font = new Font("Arial", Font.PLAIN, 26);
+       
+        g2.setFont(font);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        
+
+        g2.drawString(centerText, this.getX() + this.getWidth() / 2, this.getY() + this.getHeight() / 2);
     }
     
     /**
