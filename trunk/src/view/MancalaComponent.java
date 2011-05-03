@@ -29,8 +29,8 @@ public class MancalaComponent extends JComponent implements ChangeListener
      */
     public MancalaComponent(GameModel aModel, ShapeFormatter formatter)
     {
-        stones = new int[14];
         model = aModel;
+        stones = new int[14];
         this.formatter = formatter;
         setVisible(false);
         model.attach(this);
@@ -186,6 +186,7 @@ public class MancalaComponent extends JComponent implements ChangeListener
         
         repaint();
     }
+
     
     /**
      * sets the board to be visible or not
@@ -195,8 +196,6 @@ public class MancalaComponent extends JComponent implements ChangeListener
     {
         setVisible(visible);
     }
-
-    
     public void setFormatter(ShapeFormatter sf)
     {
         formatter = sf;

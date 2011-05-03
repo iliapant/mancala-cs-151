@@ -38,7 +38,7 @@ public class PitShape
     public void draw(Graphics2D g)
     {
         g.draw(shape);
-
+        fill(g);
     }
 
     /**
@@ -51,18 +51,24 @@ public class PitShape
         g.fill(shape);
         //TODO.: draw stones (needs to be drawn in right position)
 
-        g.setColor(Color.BLACK);
-        double x = 0;
-        double y = 0;
-        double theta = 0;
+        
+        
         int counter = 1;
+        double radius = Math.min(this.height, this.width) / 4.0;
         for(int i = 0; i < stones; i++)
         {
-            //circumference of circle is 2*pi. divide by stones and times by counter to get the positions
-            theta = 2*Math.PI/stones * counter; 
-            x = Math.cos(theta);
-            y = Math.sin(theta);
-            Ellipse2D.Double stone = new Ellipse2D.Double(x, y, 10, 10);
+            //360 degrees => 2 * PI .divide by stones and times by counter to get the angle
+        	
+            double theta = (2*Math.PI) / (1.0 * stones) * (1.0 * counter);
+            // center of pit is (this.x + width/2, this.y + height/2)
+            double x = this.x + width / 2 + Math.cos(theta) * radius - radius / 2.0;
+            double y = this.y + height / 2 + Math.sin(theta) * radius - radius / 2.0;    
+            
+            Ellipse2D.Double stone = new Ellipse2D.Double(x, y, STONE_SIZE, STONE_SIZE);
+           
+            g.setPaint(new Color((float)Math.random(), (float)Math.random(), (float)Math.random()));
+            g.fill(stone);
+            g.setColor(Color.BLACK);
             g.draw(stone);
             counter++;
         }
@@ -124,5 +130,6 @@ public class PitShape
     private Shape shape;
     private int stones;
     private Color c;
+    final int STONE_SIZE = 20;
 
 }
