@@ -68,7 +68,7 @@ public class GameModel
 
     private Player getPitOwner(int pitIndex)
     {
-        if (pitIndex >= 0 && pitIndex < PLAYER_A_MANCALA)
+        if (pitIndex >= 0 && pitIndex <= PLAYER_A_MANCALA)
             return Player.A;
         // If not assume it's player B's
         return Player.B;
@@ -203,11 +203,11 @@ public class GameModel
         pits[pitIndex] = 0;
 
         int where = pitIndex;
-        while (inHand >= 0)
+        while (inHand > 0)
         {
             // update where
             where++;
-            if (where > PITS_NUM) where = 0;
+            if (where >= PITS_NUM) where = 0;
 
             // Skip if not currentPlayer's mancala
             if (isMancala(where) && getPitOwner(where) != currentPlayer)

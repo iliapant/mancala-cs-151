@@ -1,13 +1,8 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,7 +12,6 @@ import javax.swing.JPanel;
 import model.BlueSquareFormatter;
 import model.GameModel;
 import model.RedRoundFormatter;
-import model.ShapeFormatter;
 
 /**
  * Frame for the mancala game
@@ -125,8 +119,7 @@ public class GameFrame
         System.out.println("aha: " + buttonsVisible[0] + " " + buttonsVisible[1]);
         if(!buttonsVisible[0] && !buttonsVisible[1])
         {
-            mancalaComponent.setBoardVisible(true);
-            System.out.println("Yea");
+            mancalaComponent.startGame();
         }
     }
     private boolean[] buttonsVisible;

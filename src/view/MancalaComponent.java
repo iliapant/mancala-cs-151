@@ -80,14 +80,6 @@ public class MancalaComponent extends JComponent implements ChangeListener
         PitShape mancala1 = new PitShape(10, 120, PIT_WIDTH, 3*PIT_HEIGHT, c);
         mancala1.setShape(formatter.formatPitShape(mancala1));
         mancala1.setStones(stones[6]);
-
-        addShape(p0);
-        addShape(p1);
-        addShape(p2);
-        addShape(p3);
-        addShape(p4);
-        addShape(p5);
-        addShape(mancala1);
         
         //bottom pits
         PitShape p7 = new PitShape(PIT_WIDTH + PIT_WIDTH/4, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
@@ -118,13 +110,21 @@ public class MancalaComponent extends JComponent implements ChangeListener
         mancala2.setShape(formatter.formatPitShape(mancala2));
         mancala2.setStones(stones[13]);
         
+        // Add Shapes in right order
         addShape(p7);
         addShape(p8);
         addShape(p9);
         addShape(p10);
         addShape(p11);
-        addShape(p12);
+        addShape(p12);   
         addShape(mancala2);
+        addShape(p5);
+        addShape(p4);
+        addShape(p3);
+        addShape(p2);
+        addShape(p1);
+        addShape(p0);
+        addShape(mancala1);
        
 
         addMouseListener(new MouseAdapter()
@@ -135,8 +135,11 @@ public class MancalaComponent extends JComponent implements ChangeListener
                 {
                     if(pits.get(i).contains(e.getPoint()))
                     {
-                        //move
-                        
+                    	System.out.println("Printed inside of this: " + i);
+                       if (model.canMakeMove(i))
+                       {
+                    	   model.makeMove(i);
+                       }
                     }
                 }
             }
@@ -202,6 +205,11 @@ public class MancalaComponent extends JComponent implements ChangeListener
         computeBoard();
     }
     
+    public void startGame()
+    {
+    	setBoardVisible(true);
+    	model.setCurrentState("ONGOING");
+    }
     private ArrayList<Shape> shapes;
     private ArrayList<PitShape> pits;
     private GameModel model;

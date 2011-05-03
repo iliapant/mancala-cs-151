@@ -64,7 +64,8 @@ public class PitShape
             
             Ellipse2D.Double stone = new Ellipse2D.Double(x, y, STONE_SIZE, STONE_SIZE);
            
-            g.setPaint(new Color((float)Math.random(), (float)Math.random(), (float)Math.random()));
+            //g.setPaint(new Color((float)Math.random(), (float)Math.random(), (float)Math.random()));
+            g.setPaint(Color.GREEN);
             g.fill(stone);
             g.setColor(Color.BLACK);
             g.draw(stone);
