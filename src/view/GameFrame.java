@@ -122,9 +122,11 @@ public class GameFrame
         p.setVisible(visible);
         
         //if both are false, display the board
+        System.out.println("aha: " + buttonsVisible[0] + " " + buttonsVisible[1]);
         if(!buttonsVisible[0] && !buttonsVisible[1])
         {
             mancalaComponent.setBoardVisible(true);
+            System.out.println("Yea");
         }
     }
     private boolean[] buttonsVisible;
