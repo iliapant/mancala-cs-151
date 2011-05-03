@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -194,10 +195,12 @@ public class MancalaComponent extends JComponent implements ChangeListener
         Font font = new Font("Arial", Font.PLAIN, 26);
        
         g2.setFont(font);
+        FontMetrics fm = g.getFontMetrics();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        
 
-        g2.drawString(centerText, this.getX() + this.getWidth() / 2, this.getY() + this.getHeight() / 2);
+        g2.drawString(centerText, this.getX() + this.getWidth() / 2 - fm.stringWidth(""+stones) / 2,
+        		this.getY() + this.getHeight() / 2 - fm.getAscent() / 2);
+        
     }
     
     /**

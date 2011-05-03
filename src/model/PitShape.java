@@ -1,7 +1,10 @@
 package model;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -53,6 +56,17 @@ public class PitShape
         
         int counter = 1;
         double radius = Math.min(this.height, this.width) / 4.0;
+        if (stones > 0)
+        {
+        	 g.setColor(Color.GREEN);
+        	 
+             Font font = new Font("Arial", Font.PLAIN, 18);
+             FontMetrics fm = g.getFontMetrics();
+             g.setFont(font);
+             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+             
+             g.drawString("" + stones, this.x + width/2 - fm.stringWidth(""+stones) / 2, this.y + height/2 + fm.getDescent() / 2);
+        }
         for(int i = 0; i < stones; i++)
         {
             //360 degrees => 2 * PI .divide by stones and times by counter to get the angle
