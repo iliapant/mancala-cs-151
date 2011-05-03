@@ -22,7 +22,6 @@ public class GameModel
     private int[] pits;
     private Player currentPlayer;
     private GameState currentState;
-    private int stones;
 
     private ArrayList<ChangeListener> listeners;
 
@@ -31,7 +30,6 @@ public class GameModel
      */
     public GameModel()
     {
-        stones = 0;
         pits = new int[PITS_NUM];
         currentPlayer = Player.A;
         currentState = GameState.PLACING;
@@ -274,6 +272,8 @@ public class GameModel
         int pitLen = pits.length;
         for(int i = 0; i < pitLen; i++)
             pits[i] = num;
+        
+        this.notifyAllListeners();
     }
     
     /**
