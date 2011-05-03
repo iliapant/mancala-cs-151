@@ -29,10 +29,12 @@ public class MancalaComponent extends JComponent implements ChangeListener
      */
     public MancalaComponent(GameModel aModel, ShapeFormatter formatter)
     {
+        stones = new int[14];
         model = aModel;
         this.formatter = formatter;
         setVisible(false);
-        //computeBoard();
+        model.attach(this);
+        computeBoard();
     }
     
     private void computeBoard()
@@ -53,24 +55,31 @@ public class MancalaComponent extends JComponent implements ChangeListener
         //top pits
         PitShape p0 = new PitShape(PIT_WIDTH + PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
         p0.setShape(formatter.formatPitShape(p0));
+        p0.setStones(stones[0]);
         
         PitShape p1 = new PitShape(2*PIT_WIDTH + PIT_WIDTH/2, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c); //adds a pit 1
         p1.setShape(formatter.formatPitShape(p1));
+        p1.setStones(stones[1]);
 
         PitShape p2 = new PitShape(3*PIT_WIDTH + 3*PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c ); //adds a pit 2
         p2.setShape(formatter.formatPitShape(p2));
+        p2.setStones(stones[2]);
 
         PitShape p3 = new PitShape(5*PIT_WIDTH, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c); //adds a pit 3
         p3.setShape(formatter.formatPitShape(p3));
+        p3.setStones(stones[3]);
 
         PitShape p4 = new PitShape(6*PIT_WIDTH + PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c); //adds a pit 4
         p4.setShape(formatter.formatPitShape(p4));
+        p4.setStones(stones[4]);
 
         PitShape p5 = new PitShape(7*PIT_WIDTH + PIT_WIDTH/2, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT,c); //adds a pit 5
         p5.setShape(formatter.formatPitShape(p5));
-        
+        p5.setStones(stones[5]);
+
         PitShape mancala1 = new PitShape(10, 120, PIT_WIDTH, 3*PIT_HEIGHT, c);
         mancala1.setShape(formatter.formatPitShape(mancala1));
+        mancala1.setStones(stones[6]);
 
         addShape(p0);
         addShape(p1);
@@ -83,20 +92,31 @@ public class MancalaComponent extends JComponent implements ChangeListener
         //bottom pits
         PitShape p7 = new PitShape(PIT_WIDTH + PIT_WIDTH/4, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
         p7.setShape(formatter.formatPitShape(p7));
-        
+        p7.setStones(stones[7]);
+
         PitShape p8 = new PitShape(2*PIT_WIDTH + PIT_WIDTH/2, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
         p8.setShape(formatter.formatPitShape(p8));
-        
+        p8.setStones(stones[8]);
+
         PitShape p9 = new PitShape(3*PIT_WIDTH + 3*PIT_WIDTH/4, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
         p9.setShape(formatter.formatPitShape(p9));
+        p9.setStones(stones[9]);
+
         PitShape p10 = new PitShape(5*PIT_WIDTH, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
         p10.setShape(formatter.formatPitShape(p10));
+        p10.setStones(stones[10]);
+
         PitShape p11 = new PitShape(6*PIT_WIDTH + PIT_WIDTH/4, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
         p11.setShape(formatter.formatPitShape(p11));
+        p11.setStones(stones[11]);
+
         PitShape p12 = new PitShape(7*PIT_WIDTH + PIT_WIDTH/2, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
         p12.setShape(formatter.formatPitShape(p12));
+        p12.setStones(stones[12]);
+
         PitShape mancala2 = new PitShape((int)boardShape.getWidth()-PIT_WIDTH, 120, PIT_WIDTH, 3*PIT_HEIGHT, c);
         mancala2.setShape(formatter.formatPitShape(mancala2));
+        mancala2.setStones(stones[13]);
         
         addShape(p7);
         addShape(p8);
@@ -144,8 +164,9 @@ public class MancalaComponent extends JComponent implements ChangeListener
             g2.draw(s);
         
         for(PitShape p: pits)
+        {
             p.fill(g2);
-        
+        }    
     }
     
     /**
@@ -188,4 +209,5 @@ public class MancalaComponent extends JComponent implements ChangeListener
     private ArrayList<PitShape> pits;
     private GameModel model;
     private ShapeFormatter formatter;
+    private int[] stones;
 }
