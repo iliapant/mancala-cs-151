@@ -270,7 +270,7 @@ public class GameModel
     public void setNumStones(int num)
     {
         int pitLen = pits.length;
-        for(int i = 0; i < pitLen; i++)
+        for(int i = 0; i < pitLen; i++) if (!isMancala(i))
             pits[i] = num;
         
         this.notifyAllListeners();
