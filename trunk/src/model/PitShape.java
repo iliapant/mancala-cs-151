@@ -10,7 +10,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 /**
- * super class MancalaShape. Creates a pit or mancala
+ *  Creates a pit or mancala
  *
  */
 public class PitShape
@@ -50,9 +50,6 @@ public class PitShape
     {
         g.setColor(c);
         g.fill(shape);
-        //TODO.: draw stones (needs to be drawn in right position)
-
-        
         
         int counter = 1;
         double radius = Math.min(this.height, this.width) / 4.0;
@@ -87,6 +84,11 @@ public class PitShape
         }
     }
 
+    /**
+     * checks if the point is contained in the pit
+     * @param aPoint the point x, y
+     * @return true if it contains the point
+     */
     public boolean contains(Point2D aPoint)
     {
         if(shape.contains(aPoint))
@@ -95,42 +97,73 @@ public class PitShape
             return false;
     }
 
+    /**
+     * gets the number of stones in the pit
+     * @return the stones
+     */
     public int getStones()
     {
         return stones;
     }
 
+    /**
+     * sets the number of stones in the pit
+     * @param num the number of stones
+     */
     public void setStones(int num)
     {
         stones = num;
     }
 
+    /**
+     * sets the shape of the pit
+     * @param s the shape
+     */
     public void setShape(Shape s)
     {
         shape = s;
     }
 
+    /**
+     * gets the shape of the pit
+     * @return the shape
+     */
     public Shape getShape()
     {
         return shape;
     }
-
-
+    
+    /**
+     * gets the x coordinate
+     * @return the x coordinate
+     */
     public int getX()
     {
         return x;
     }
 
+    /**
+     * gets the y coordinate
+     * @return the y coordinate
+     */
     public int getY()
     {
         return y;
     }
 
+    /**
+     * gets the width
+     * @return the width
+     */
     public int getWidth()
     {
         return width;
     }
 
+    /**
+     * gets the height
+     * @return the height
+     */
     public int getHeight()
     {
         return height;

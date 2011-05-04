@@ -37,29 +37,50 @@ public class MancalaComponent extends JComponent implements ChangeListener
         this.formatter = formatter;
         setVisible(false);
         model.attach(this);
-        computeBoard();
+        
+        addMouseListener(new MouseAdapter()
+        {
+            public void mousePressed(MouseEvent e)
+            {
+                for(int i = 0; i < pits.size(); i++)
+                {
+                    if(pits.get(i).contains(e.getPoint()))
+                    {
+                        model.save();//save the model before moving
+                        System.out.println("Printed inside of this: " + i);
+                        if (model.canMakeMove(i))
+                        {
+                            model.makeMove(i);
+                        }
+                        break;
+                    }
+                }
+            }
+        });
     }
-    
+    /**
+     * creates the board
+     */
     private void computeBoard()
     {
-    	pits = new ArrayList<PitShape>();
+        pits = new ArrayList<PitShape>();
         shapes = new ArrayList<Shape>();
-    	Rectangle2D.Double boardShape = new Rectangle2D.Double(5, 20, 965, 670); //the board shape
-        
+        Rectangle2D.Double boardShape = new Rectangle2D.Double(5, 20, 965, 670); //the board shape
+
         //variables for pit locations
         final int PIT_WIDTH = 100;
         final int PIT_HEIGHT = 150;
         final int TOP_PIT_Y = 75;
         final double BOTTOM_PIT_Y = boardShape.getHeight() - TOP_PIT_Y - PIT_HEIGHT;
-        
+
         setSize(920, 600);
-        
+
         Color c = formatter.formatPitColor();
         //top pits
         PitShape p0 = new PitShape(PIT_WIDTH + PIT_WIDTH/4, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
         p0.setShape(formatter.formatPitShape(p0));
         p0.setStones(stones[0]);
-        
+
         PitShape p1 = new PitShape(2*PIT_WIDTH + PIT_WIDTH/2, TOP_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c); //adds a pit 1
         p1.setShape(formatter.formatPitShape(p1));
         p1.setStones(stones[1]);
@@ -83,7 +104,7 @@ public class MancalaComponent extends JComponent implements ChangeListener
         PitShape mancala1 = new PitShape(10, 120, PIT_WIDTH, 3*PIT_HEIGHT, c);
         mancala1.setShape(formatter.formatPitShape(mancala1));
         mancala1.setStones(stones[6]);
-        
+
         //bottom pits
         PitShape p7 = new PitShape(PIT_WIDTH + PIT_WIDTH/4, (int)BOTTOM_PIT_Y, PIT_WIDTH, PIT_HEIGHT, c);
         p7.setShape(formatter.formatPitShape(p7));
@@ -112,7 +133,7 @@ public class MancalaComponent extends JComponent implements ChangeListener
         PitShape mancala2 = new PitShape((int)boardShape.getWidth()-PIT_WIDTH, 120, PIT_WIDTH, 3*PIT_HEIGHT, c);
         mancala2.setShape(formatter.formatPitShape(mancala2));
         mancala2.setStones(stones[13]);
-        
+
         // Add Shapes in right order
         addShape(p7);
         addShape(p8);
@@ -128,26 +149,7 @@ public class MancalaComponent extends JComponent implements ChangeListener
         addShape(p1);
         addShape(p0);
         addShape(mancala1);
-       
 
-        addMouseListener(new MouseAdapter()
-        {
-            public void mousePressed(MouseEvent e)
-            {
-                for(int i = 0; i < pits.size(); i++)
-                {
-                    if(pits.get(i).contains(e.getPoint()))
-                    {
-                    	System.out.println("Printed inside of this: " + i);
-                       if (model.canMakeMove(i))
-                       {
-                    	   model.makeMove(i);
-                       }
-                    }
-                }
-            }
-        });
-        
         shapes.add(boardShape);
     }
     /**
@@ -158,17 +160,17 @@ public class MancalaComponent extends JComponent implements ChangeListener
     {
         pits.add(shape);        
     }
-    
+
     /**
      * paints the component
      */
     public void paintComponent(Graphics g)
     {
         Graphics2D g2 = (Graphics2D) g;
-        
+
         for(Shape s: shapes)
             g2.draw(s);
-        
+
         for(PitShape p: pits)
         {
             p.fill(g2);
@@ -177,51 +179,52 @@ public class MancalaComponent extends JComponent implements ChangeListener
         String centerText = "";
         if (model.getCurrentState() == GameModel.GameState.ONGOING)
         {
-        	if (model.getCurrentPlayer() == GameModel.Player.A)
-        	{
-        		centerText = "Turn: Player 1";
-        	}
-        	else
-        	{
-        		centerText = "Turn: Player 2";
-        	}
+            if (model.getCurrentPlayer() == GameModel.Player.A)
+            {
+                centerText = "Turn: Player 1";
+            }
+            else
+            {
+                centerText = "Turn: Player 2";
+            }
         }
         else if (model.getCurrentState() == GameModel.GameState.ENDED)
         {
-        	centerText = "Final Score: " + model.getScore(GameModel.Player.A) + " vs " + model.getScore(GameModel.Player.B);
+            centerText = "Final Score: " + model.getScore(GameModel.Player.A) + " vs " + model.getScore(GameModel.Player.B);
         }
         g.setColor(Color.RED);
-        
+
         Font font = new Font("Arial", Font.PLAIN, 26);
-       
+
         g2.setFont(font);
         FontMetrics fm = g.getFontMetrics();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2.drawString(centerText, this.getX() + this.getWidth() / 2 - fm.stringWidth(""+stones) / 2,
-        		this.getY() + this.getHeight() / 2 - fm.getAscent() / 2);
-        
+                this.getY() + this.getHeight() / 2 - fm.getAscent() / 2);
+
     }
-    
+
     /**
      * updates the pits when a change occurs
      */
     @Override
     public void stateChanged(ChangeEvent c)
     {
+        computeBoard();
         stones = model.getPits(); //array containing stones from gameModel
-        
+
         int pitSize = pits.size(); //the size of pits
         //update the pits with the stones from the model
         for(int i = 0; i < pitSize; i++)
         {
             pits.get(i).setStones(stones[i]);
         }
-        
+
         repaint();
     }
 
-    
+
     /**
      * sets the board to be visible or not
      * @param visible true if visible
@@ -230,17 +233,25 @@ public class MancalaComponent extends JComponent implements ChangeListener
     {
         setVisible(visible);
     }
+    
+    /**
+     * sets the formatter depending on the button clicked. strategy pattern.
+     * @param sf the ShapeFormatter
+     */
     public void setFormatter(ShapeFormatter sf)
     {
         formatter = sf;
-        computeBoard();
     }
-    
+
+    /**
+     * starts the game
+     */
     public void startGame()
     {
-    	setBoardVisible(true);
-    	model.setCurrentState("ONGOING");
+        setBoardVisible(true);
+        model.setCurrentState("ONGOING");
     }
+
     private ArrayList<Shape> shapes;
     private ArrayList<PitShape> pits;
     private GameModel model;
