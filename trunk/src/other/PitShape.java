@@ -1,4 +1,4 @@
-package model;
+package other;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,13 +10,14 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 /**
- *  Creates a pit or mancala
+ *  Class to represent a pit object.
+ *  It can be either regular pit or a Mancala.
  *
  */
 public class PitShape
 {
     /**
-     * Creates a new Mancala shape
+     * Creates a new Pit shape
      * @param x the x position
      * @param y the y position
      * @param width the width
@@ -31,9 +32,8 @@ public class PitShape
         this.c = c;
     }
 
-
     /**
-     * draws the composite shape
+     * Draws the Pit shape
      * @param g the graphics
      */
     public void draw(Graphics2D g)
@@ -43,7 +43,7 @@ public class PitShape
     }
 
     /**
-     * fills the composite shape
+     * Fills the composite shape
      * @param g the graphics
      */
     public void fill(Graphics2D g)
@@ -66,8 +66,7 @@ public class PitShape
         }
         for(int i = 0; i < stones; i++)
         {
-            //360 degrees => 2 * PI .divide by stones and times by counter to get the angle
-        	
+            //360 degrees => 2 * PI .divide by stones and times by counter to get the angle    	
             double theta = (2*Math.PI) / (1.0 * stones) * (1.0 * counter);
             // center of pit is (this.x + width/2, this.y + height/2)
             double x = this.x + width / 2 + Math.cos(theta) * radius - radius / 2.0;
@@ -75,7 +74,6 @@ public class PitShape
             
             Ellipse2D.Double stone = new Ellipse2D.Double(x, y, STONE_SIZE, STONE_SIZE);
            
-            //g.setPaint(new Color((float)Math.random(), (float)Math.random(), (float)Math.random()));
             g.setPaint(Color.GREEN);
             g.fill(stone);
             g.setColor(Color.BLACK);
@@ -85,7 +83,7 @@ public class PitShape
     }
 
     /**
-     * checks if the point is contained in the pit
+     * Checks if the point is contained in the pit
      * @param aPoint the point x, y
      * @return true if it contains the point
      */
@@ -98,7 +96,7 @@ public class PitShape
     }
 
     /**
-     * gets the number of stones in the pit
+     * Gets the number of stones in the pit
      * @return the stones
      */
     public int getStones()
@@ -107,7 +105,7 @@ public class PitShape
     }
 
     /**
-     * sets the number of stones in the pit
+     * Sets the number of stones in the pit
      * @param num the number of stones
      */
     public void setStones(int num)
@@ -116,7 +114,7 @@ public class PitShape
     }
 
     /**
-     * sets the shape of the pit
+     * Sets the shape of the pit
      * @param s the shape
      */
     public void setShape(Shape s)
@@ -125,7 +123,7 @@ public class PitShape
     }
 
     /**
-     * gets the shape of the pit
+     * Gets the shape of the pit
      * @return the shape
      */
     public Shape getShape()
@@ -134,7 +132,7 @@ public class PitShape
     }
     
     /**
-     * gets the x coordinate
+     * Gets the x coordinate
      * @return the x coordinate
      */
     public int getX()
@@ -143,7 +141,7 @@ public class PitShape
     }
 
     /**
-     * gets the y coordinate
+     * Gets the y coordinate
      * @return the y coordinate
      */
     public int getY()
@@ -152,7 +150,7 @@ public class PitShape
     }
 
     /**
-     * gets the width
+     * Gets the width
      * @return the width
      */
     public int getWidth()
@@ -161,7 +159,7 @@ public class PitShape
     }
 
     /**
-     * gets the height
+     * Gets the height
      * @return the height
      */
     public int getHeight()
@@ -177,5 +175,4 @@ public class PitShape
     private int stones;
     private Color c;
     final int STONE_SIZE = 20;
-
 }

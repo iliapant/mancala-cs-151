@@ -7,7 +7,7 @@ import javax.swing.event.ChangeListener;
 
 
 /**
- * The model of the Mancala game.
+ * The model of the Mancala game. Part of the MVC Pattern.
  *
  */
 public class GameModel
@@ -26,6 +26,7 @@ public class GameModel
     private int aUndos;
     private int bUndos;
     private boolean lastInMancala;
+    private boolean canUndo;
 
     private ArrayList<ChangeListener> listeners;
 
@@ -41,8 +42,8 @@ public class GameModel
         pits = new int[PITS_NUM];
         currentPlayer = Player.A;
         currentState = GameState.PLACING;
-
         listeners = new ArrayList<ChangeListener>();
+        canUndo = false;
     }
 
     /**
@@ -73,7 +74,6 @@ public class GameModel
      * @param pitIndex
      * @return the player that owns the pit
      */
-
     private Player getPitOwner(int pitIndex)
     {
         if (pitIndex >= 0 && pitIndex <= PLAYER_A_MANCALA)
@@ -119,12 +119,10 @@ public class GameModel
         if (currentPlayer == Player.A)
         {
             currentPlayer = Player.B;
-
         }
         else
         {
             currentPlayer = Player.A;
-
         }
     }
 
@@ -154,7 +152,7 @@ public class GameModel
     }
 
     /**
-     * collects the stones at the end of the game
+     * Collects the stones at the end of the game and puts them in the Mancalas.
      */
     private void collectStones()
     {
@@ -177,7 +175,7 @@ public class GameModel
     /**
      * Checks if the game is over. This is private,
      * the viewers should check via currentStatus.
-     * @return
+     * @return whether the game is over or not
      */
     private boolean isOver()
     {
@@ -211,7 +209,11 @@ public class GameModel
          * Take stones in hand and move counter-clockwise
          * and place them.
          */
-
+    	
+    	// First save the state of pits
+    	this.save();
+    	
+    	canUndo = true;
         //reset player b's undos
         if(currentPlayer.equals(Player.A))
             bUndos = 0;
@@ -286,7 +288,7 @@ public class GameModel
     }
 
     /**
-     * sets the number of stones to be in each pit originally. Called when the game starts after button is clicked.
+     * Sets the number of stones to be in each pit originally. Called when the game starts after button is clicked.
      * @param num the number of stones
      */
     public void setNumStones(int num)
@@ -299,7 +301,7 @@ public class GameModel
     }
 
     /**
-     * sets the current state of the game
+     * Sets the current state of the game
      * @param state the state
      */
     public void setCurrentState(String state)
@@ -331,7 +333,7 @@ public class GameModel
     }
 
     /**
-     * gets the pit array with amount of stones in each
+     * Gets the pit array with amount of stones in each
      * @return the pit array
      */
     public int[] getPits()
@@ -354,59 +356,67 @@ public class GameModel
     }
 
     /**
-     * undos the last move
+     * Undos the last move, if possible.
      */
     public void undo()
     {
-        if(lastInMancala && currentPlayer == Player.A && aUndos < MAX_UNDOS)
-        {
-            aUndos++;
-            pits = lastTurnPits.clone();
-            currentPlayer = Player.A;
-            notifyAllListeners();
-        }
-        
-        else if(!lastInMancala && currentPlayer == Player.A && bUndos < MAX_UNDOS)
-        {
-            bUndos++;
-            pits = lastTurnPits.clone();
-            currentPlayer = Player.B;
-            notifyAllListeners();
-        }
-
-        else if(lastInMancala && currentPlayer == Player.B && bUndos < MAX_UNDOS)
-        {
-            bUndos++;
-            pits = lastTurnPits.clone();
-            currentPlayer = Player.B;
-            notifyAllListeners();
-        }
-        
-        else if(!lastInMancala && currentPlayer == Player.B && aUndos < MAX_UNDOS)
-        {
-            aUndos++;
-            pits = lastTurnPits.clone();
-            currentPlayer = Player.A;
-            notifyAllListeners();
-        }
-        
-        
-        
-        if(aUndos < MAX_UNDOS && currentState.equals(GameState.ENDED)  || 
+    	if (!canUndo)
+    		return;
+    	
+    	boolean possible = false;
+    	
+    	switch (currentPlayer)
+    	{
+    		case A:
+    		{
+    			if (lastInMancala && aUndos < MAX_UNDOS)
+    			{
+    				aUndos++;
+    				possible = true;
+    			}
+    			else if (!lastInMancala && bUndos < MAX_UNDOS)
+    			{
+    				bUndos++;
+    				currentPlayer = Player.B;
+    				possible = true;
+    			}
+    			break;
+    		}
+    		case B:
+    		{
+    			if (lastInMancala && bUndos < MAX_UNDOS)
+    			{
+    				bUndos++;
+    				possible = true;
+    			}
+    			else if (!lastInMancala && aUndos < MAX_UNDOS)
+    			{
+    				aUndos++;
+    				possible = true;
+    				currentPlayer = Player.A;
+    			}
+    			break;
+    		}
+    	}
+    	
+        if (aUndos < MAX_UNDOS && currentState.equals(GameState.ENDED)  || 
                 bUndos < MAX_UNDOS && currentState.equals(GameState.ENDED))
         {
             currentState = GameState.ONGOING;
         }
-
-
+        if (possible)
+        {
+        	canUndo = false;
+            pits = lastTurnPits.clone();
+        	notifyAllListeners();
+        }
     }
 
     /**
-     * saves the board before the move occurs
+     * Saves the board before the move occurs
      */
     public void save()
     {
         lastTurnPits = pits.clone();
-
     }
 }
