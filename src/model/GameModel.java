@@ -25,6 +25,7 @@ public class GameModel
     private GameState currentState;
     private int aUndos;
     private int bUndos;
+    private boolean lastInMancala;
 
     private ArrayList<ChangeListener> listeners;
 
@@ -33,6 +34,7 @@ public class GameModel
      */
     public GameModel()
     {
+        lastInMancala = false;
         aUndos = 0;
         bUndos = 0;
         lastTurnPits = new int[PITS_NUM];
@@ -245,6 +247,7 @@ public class GameModel
         if (getPitOwner(where) == currentPlayer && isMancala(where))
         {
             //free turn
+            lastInMancala = true;
         }
         // empty pit on your side
         else if (getPitOwner(where) == currentPlayer
@@ -262,11 +265,13 @@ public class GameModel
                 pits[PLAYER_B_MANCALA] += captured;
             }
             // Give turn to next player
+            lastInMancala = false;
             nextTurn();
         }
         else
         {
             // Give turn to next player.
+            lastInMancala = false;
             nextTurn();
         }
 
@@ -353,8 +358,15 @@ public class GameModel
      */
     public void undo()
     {
-        //will be player a's turn if b wants to undo
-        if(currentPlayer == Player.A && bUndos < MAX_UNDOS)
+        if(lastInMancala && currentPlayer == Player.A && bUndos < MAX_UNDOS)
+        {
+            aUndos++;
+            pits = lastTurnPits.clone();
+            currentPlayer = Player.A;
+            notifyAllListeners();
+        }
+        
+        else if(!lastInMancala && currentPlayer == Player.A && bUndos < MAX_UNDOS)
         {
             bUndos++;
             pits = lastTurnPits.clone();
@@ -362,13 +374,28 @@ public class GameModel
             notifyAllListeners();
         }
 
-        else if(currentPlayer == Player.B && aUndos < MAX_UNDOS)
+        else if(lastInMancala && currentPlayer == Player.B && aUndos < MAX_UNDOS)
+        {
+            bUndos++;
+            pits = lastTurnPits.clone();
+            currentPlayer = Player.B;
+            notifyAllListeners();
+        }
+        
+        else if(!lastInMancala && currentPlayer == Player.B && aUndos < MAX_UNDOS)
         {
             aUndos++;
             pits = lastTurnPits.clone();
             currentPlayer = Player.A;
             notifyAllListeners();
         }
+        
+        if(aUndos < MAX_UNDOS && currentState.equals(GameState.ENDED)  || 
+                bUndos < MAX_UNDOS && currentState.equals(GameState.ENDED))
+        {
+            currentState = GameState.ONGOING;
+        }
+
 
     }
 

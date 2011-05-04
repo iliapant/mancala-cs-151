@@ -46,10 +46,11 @@ public class MancalaComponent extends JComponent implements ChangeListener
                 {
                     if(pits.get(i).contains(e.getPoint()))
                     {
-                        model.save();//save the model before moving
                         System.out.println("Printed inside of this: " + i);
                         if (model.canMakeMove(i))
                         {
+                            model.save();//save the model before moving
+
                             model.makeMove(i);
                         }
                         break;
