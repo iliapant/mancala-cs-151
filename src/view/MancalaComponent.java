@@ -74,7 +74,7 @@ public class MancalaComponent extends JComponent implements ChangeListener
         final int TOP_PIT_Y = 75;
         final double BOTTOM_PIT_Y = boardShape.getHeight() - TOP_PIT_Y - PIT_HEIGHT;
 
-        setSize(920, 600);
+        //setSize(920, 600);
 
         Color c = formatter.formatPitColor();
         //top pits
