@@ -8,7 +8,6 @@ import javax.swing.event.ChangeListener;
 
 /**
  * The model of the Mancala game.
- * 
  *
  */
 public class GameModel
@@ -16,12 +15,16 @@ public class GameModel
     public static final int PITS_NUM = 14;
     public static final int PLAYER_A_MANCALA = 6;
     public static final int PLAYER_B_MANCALA = 13;
+    private final int MAX_UNDOS = 3;
     public static enum GameState {PLACING, ONGOING, ENDED};
     public static enum Player {A, B};
 
     private int[] pits;
+    private int[] lastTurnPits;
     private Player currentPlayer;
     private GameState currentState;
+    private int aUndos;
+    private int bUndos;
 
     private ArrayList<ChangeListener> listeners;
 
@@ -30,6 +33,9 @@ public class GameModel
      */
     public GameModel()
     {
+        aUndos = 0;
+        bUndos = 0;
+        lastTurnPits = new int[PITS_NUM];
         pits = new int[PITS_NUM];
         currentPlayer = Player.A;
         currentState = GameState.PLACING;
@@ -111,10 +117,12 @@ public class GameModel
         if (currentPlayer == Player.A)
         {
             currentPlayer = Player.B;
+
         }
         else
         {
             currentPlayer = Player.A;
+
         }
     }
 
@@ -143,6 +151,9 @@ public class GameModel
         return Math.abs(12 - pitIndex);
     }
 
+    /**
+     * collects the stones at the end of the game
+     */
     private void collectStones()
     {
         // Clean up the pits by adding the stones in the mancalas
@@ -199,6 +210,12 @@ public class GameModel
          * and place them.
          */
 
+        //reset player b's undos
+        if(currentPlayer.equals(Player.A))
+            bUndos = 0;
+        else
+            aUndos = 0;
+        
         int inHand = pits[pitIndex];
         pits[pitIndex] = 0;
 
@@ -272,10 +289,10 @@ public class GameModel
         int pitLen = pits.length;
         for(int i = 0; i < pitLen; i++) if (!isMancala(i))
             pits[i] = num;
-        
+
         this.notifyAllListeners();
     }
-    
+
     /**
      * sets the current state of the game
      * @param state the state
@@ -289,25 +306,25 @@ public class GameModel
         else
             currentState = GameState.ENDED;
     }
-    
+
     /**
      * Getter for current player.
      * @return the current player.
      */
     public Player getCurrentPlayer()
     {
-    	return currentPlayer;
+        return currentPlayer;
     }
-    
+
     /**
      * Getter for current state.
      * @return the current state
      */
     public GameState getCurrentState()
     {
-    	return currentState;
+        return currentState;
     }
-    
+
     /**
      * gets the pit array with amount of stones in each
      * @return the pit array
@@ -316,7 +333,7 @@ public class GameModel
     {
         return pits;
     }
-    
+
     /**
      * Return the score of the requested player.
      * @param who requester player
@@ -324,10 +341,43 @@ public class GameModel
      */
     public int getScore(GameModel.Player who)
     {
-    	if (who == GameModel.Player.A)
-    		return pits[PLAYER_A_MANCALA];
-    	if (who == GameModel.Player.B)
-    		return pits[PLAYER_B_MANCALA];
-    	return 0;
+        if (who == GameModel.Player.A)
+            return pits[PLAYER_A_MANCALA];
+        if (who == GameModel.Player.B)
+            return pits[PLAYER_B_MANCALA];
+        return 0;
+    }
+
+    /**
+     * undos the last move
+     */
+    public void undo()
+    {
+        //will be player a's turn if b wants to undo
+        if(currentPlayer == Player.A && bUndos < MAX_UNDOS)
+        {
+            bUndos++;
+            pits = lastTurnPits.clone();
+            currentPlayer = Player.B;
+            notifyAllListeners();
+        }
+
+        else if(currentPlayer == Player.B && aUndos < MAX_UNDOS)
+        {
+            aUndos++;
+            pits = lastTurnPits.clone();
+            currentPlayer = Player.A;
+            notifyAllListeners();
+        }
+
+    }
+
+    /**
+     * saves the board before the move occurs
+     */
+    public void save()
+    {
+        lastTurnPits = pits.clone();
+
     }
 }

@@ -26,9 +26,21 @@ public class GameFrame
     {
         buttonsVisible = true; //holds if the buttons are visible. if they are both false display board
                 
-        JFrame frame = new JFrame();
+        final JFrame frame = new JFrame();
         final GameModel model = new GameModel();
         mancalaComponent = new MancalaComponent(model, new RedRoundFormatter());
+        
+        final JPanel lowerPanel = new JPanel();
+        JButton undo = new JButton("undo");
+        undo.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                model.undo();
+            }
+        });
+        
         final JPanel panel = new JPanel();        
 
         JLabel label = new JLabel("Select style and number of stones");
@@ -50,6 +62,7 @@ public class GameFrame
                 buttonsVisible = false;
                 setButtonVisible(false, panel);
                 mancalaComponent.setFormatter(new RedRoundFormatter());
+                setButtonVisible(true, lowerPanel);
             }
         });
         
@@ -64,6 +77,7 @@ public class GameFrame
                 buttonsVisible = false;
                 setButtonVisible(false, panel);
                 mancalaComponent.setFormatter(new RedRoundFormatter());
+                setButtonVisible(true, lowerPanel);
             }
         });
         
@@ -81,6 +95,7 @@ public class GameFrame
                 buttonsVisible = false;
                 setButtonVisible(false, panel);
                 mancalaComponent.setFormatter(new BlueSquareFormatter());
+                setButtonVisible(true, lowerPanel);
             }
         });
         
@@ -95,29 +110,16 @@ public class GameFrame
                 buttonsVisible = false;
                 setButtonVisible(false, panel);
                 mancalaComponent.setFormatter(new BlueSquareFormatter());
+                setButtonVisible(true, lowerPanel);
             }
         });
         
-        //stratPanel.add(strategyLabel);
-        //stratPanel.add(redButton);
-        //stratPanel.add(blueButton);
-        //panel.add(strategyLabel);
         panel.add(redButton3);
         panel.add(redButton4);
 
         panel.add(blueButton3);
         panel.add(blueButton4);
-
-        JPanel lowerPanel = new JPanel();
-        JButton undo = new JButton("undo");
-        undo.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                
-            }
-        });
+        
         lowerPanel.add(undo);
         frame.setSize(1000, 750);
         frame.setTitle("Mancala");
@@ -125,8 +127,7 @@ public class GameFrame
         frame.add(mancalaComponent, BorderLayout.CENTER);
         frame.add(panel, BorderLayout.NORTH);
         frame.add(lowerPanel, BorderLayout.SOUTH);
-        //setButtonVisible(true, panel);
-        //setButtonVisible(true, lowerPanel);
+        setButtonVisible(false, lowerPanel);
         frame.setVisible(true);
     }
     
