@@ -242,6 +242,7 @@ public class MancalaComponent extends JComponent implements ChangeListener
     public void setFormatter(ShapeFormatter sf)
     {
         formatter = sf;
+        computeBoard();
     }
 
     /**
