@@ -9,18 +9,19 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import model.BlueSquareFormatter;
+import other.BlueSquareFormatter;
+import other.RedRoundFormatter;
+
 import model.GameModel;
-import model.RedRoundFormatter;
 
 /**
- * Frame for the mancala game
+ * Frame to hold everything.
  *
  */
 public class GameFrame
 {
     /**
-     * creates a new GameFrame
+     * Creates a new GameFrame
      */
     public GameFrame()
     {
@@ -137,9 +138,8 @@ public class GameFrame
      */
     public void setButtonVisible(boolean visible, JPanel p)
     {
-        p.setVisible(visible);
-        
-        //if both are false, display the board
+        p.setVisible(visible);     
+        //if both are false, start the Game.
         if(!buttonsVisible)
         {
             mancalaComponent.startGame();

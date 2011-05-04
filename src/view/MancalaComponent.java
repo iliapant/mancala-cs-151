@@ -16,12 +16,14 @@ import javax.swing.JComponent;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import other.PitShape;
+import other.ShapeFormatter;
+
 import model.GameModel;
-import model.PitShape;
-import model.ShapeFormatter;
 
 /**
- * Creates the component that the shapes/board/buttons are painted on
+ * Creates the component that the shapes/board/buttons are painted on.
+ * Serves as both Controller and View in the MVC Pattern.
  *
  */
 @SuppressWarnings("serial")
@@ -44,23 +46,19 @@ public class MancalaComponent extends JComponent implements ChangeListener
             {
                 for(int i = 0; i < pits.size(); i++)
                 {
-                    if(pits.get(i).contains(e.getPoint()))
+                    if(pits.get(i).contains(e.getPoint()) &&
+                    		model.canMakeMove(i))
                     {
-                        System.out.println("Printed inside of this: " + i);
-                        if (model.canMakeMove(i))
-                        {
-                            model.save();//save the model before moving
-
-                            model.makeMove(i);
-                        }
-                        break;
+                    	model.makeMove(i);
+                    	return;
                     }
                 }
             }
         });
     }
+    
     /**
-     * creates the board
+     * Creates the board view.
      */
     private void computeBoard()
     {
@@ -153,8 +151,9 @@ public class MancalaComponent extends JComponent implements ChangeListener
 
         shapes.add(boardShape);
     }
+    
     /**
-     * adds a new shape (pit or mancala) to the component
+     * Adds a new shape (pit or mancala) to the component
      * @param shape the shape to be added
      */
     public void addShape(PitShape shape)
@@ -163,7 +162,8 @@ public class MancalaComponent extends JComponent implements ChangeListener
     }
 
     /**
-     * paints the component
+     * Paints the component
+     * @param g the Graphics
      */
     public void paintComponent(Graphics g)
     {
@@ -207,7 +207,7 @@ public class MancalaComponent extends JComponent implements ChangeListener
     }
 
     /**
-     * updates the pits when a change occurs
+     * Updates the pits when a change occurs
      */
     @Override
     public void stateChanged(ChangeEvent c)
@@ -225,9 +225,8 @@ public class MancalaComponent extends JComponent implements ChangeListener
         repaint();
     }
 
-
     /**
-     * sets the board to be visible or not
+     * Sets the board visibility.
      * @param visible true if visible
      */
     public void setBoardVisible(boolean visible)
@@ -236,7 +235,7 @@ public class MancalaComponent extends JComponent implements ChangeListener
     }
     
     /**
-     * sets the formatter depending on the button clicked. strategy pattern.
+     * Sets the formatter depending on the button clicked. Strategy pattern.
      * @param sf the ShapeFormatter
      */
     public void setFormatter(ShapeFormatter sf)
@@ -246,7 +245,7 @@ public class MancalaComponent extends JComponent implements ChangeListener
     }
 
     /**
-     * starts the game
+     * Starts the game
      */
     public void startGame()
     {
