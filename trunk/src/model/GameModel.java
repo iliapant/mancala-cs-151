@@ -358,7 +358,7 @@ public class GameModel
      */
     public void undo()
     {
-        if(lastInMancala && currentPlayer == Player.A && bUndos < MAX_UNDOS)
+        if(lastInMancala && currentPlayer == Player.A && aUndos < MAX_UNDOS)
         {
             aUndos++;
             pits = lastTurnPits.clone();
@@ -374,7 +374,7 @@ public class GameModel
             notifyAllListeners();
         }
 
-        else if(lastInMancala && currentPlayer == Player.B && aUndos < MAX_UNDOS)
+        else if(lastInMancala && currentPlayer == Player.B && bUndos < MAX_UNDOS)
         {
             bUndos++;
             pits = lastTurnPits.clone();
@@ -389,6 +389,8 @@ public class GameModel
             currentPlayer = Player.A;
             notifyAllListeners();
         }
+        
+        
         
         if(aUndos < MAX_UNDOS && currentState.equals(GameState.ENDED)  || 
                 bUndos < MAX_UNDOS && currentState.equals(GameState.ENDED))
