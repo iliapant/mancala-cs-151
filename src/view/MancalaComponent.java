@@ -25,12 +25,15 @@ import model.GameModel;
  * Creates the component that the shapes/board/buttons are painted on.
  * Serves as both Controller and View in the MVC Pattern.
  *
+ * @author Daniel DeMicco, Vlad Dumitriu
  */
 @SuppressWarnings("serial")
 public class MancalaComponent extends JComponent implements ChangeListener
 {
     /**
      * Creates a new MancalaComponent
+     * 
+     * @author Daniel DeMicco
      */
     public MancalaComponent(GameModel aModel, ShapeFormatter formatter)
     {
@@ -59,6 +62,8 @@ public class MancalaComponent extends JComponent implements ChangeListener
     
     /**
      * Creates the board view.
+     * 
+     * @author Daniel DeMicco, Vlad Dumitriu
      */
     private void computeBoard()
     {
@@ -164,6 +169,8 @@ public class MancalaComponent extends JComponent implements ChangeListener
     /**
      * Paints the component
      * @param g the Graphics
+     * 
+     * @author Daniel DeMicco, Vlad Dumitriu
      */
     public void paintComponent(Graphics g)
     {
@@ -208,6 +215,8 @@ public class MancalaComponent extends JComponent implements ChangeListener
 
     /**
      * Updates the pits when a change occurs
+     * 
+     * @author Daniel DeMicco
      */
     @Override
     public void stateChanged(ChangeEvent c)
@@ -246,6 +255,7 @@ public class MancalaComponent extends JComponent implements ChangeListener
 
     /**
      * Starts the game
+     * @author Vlad Dumitriu
      */
     public void startGame()
     {

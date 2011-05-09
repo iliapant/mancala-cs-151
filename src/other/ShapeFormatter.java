@@ -6,6 +6,7 @@ import java.awt.Shape;
 /**
  * Interface for defining a ShapeFormatter. Part of Strategy Pattern.
  * 
+ * @author Daniel DeMicco
  */
 public interface ShapeFormatter
 {

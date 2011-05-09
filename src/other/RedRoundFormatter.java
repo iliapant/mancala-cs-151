@@ -9,6 +9,7 @@ import java.awt.geom.Ellipse2D;
  * Concrete Formatter, part of the Strategy pattern.
  * Red Color with Round pits.
  *
+ * @author Daniel DeMicco
  */
 public class RedRoundFormatter implements ShapeFormatter
 {

@@ -8,6 +8,7 @@ import java.awt.geom.Rectangle2D;
  * Concrete Formatter, part of the Strategy pattern.
  * Blue Color with rectangles pits.
  *
+ * @author Daniel DeMicco
  */
 public class BlueSquareFormatter implements ShapeFormatter
 {

@@ -9,6 +9,7 @@ import javax.swing.event.ChangeListener;
 /**
  * The model of the Mancala game. Part of the MVC Pattern.
  *
+ * @author Daniel DeMicco, Vlad Dumitriu
  */
 public class GameModel
 {
@@ -32,6 +33,8 @@ public class GameModel
 
     /**
      * Basic Constructor of a GameModel.
+     * 
+     * @author Vlad Dumitriu
      */
     public GameModel()
     {
@@ -50,6 +53,7 @@ public class GameModel
      * Attach a listener to the model.
      * 
      * @param c
+     * @author Vlad Dumitriu
      */
     public void attach(ChangeListener c)
     {
@@ -59,6 +63,8 @@ public class GameModel
     /**
      * Used when there is a change in the model,
      * to notify all listeners.
+     * 
+     * @author Vlad Dumitriu
      */
     private void notifyAllListeners()
     {
@@ -73,6 +79,8 @@ public class GameModel
      * 
      * @param pitIndex
      * @return the player that owns the pit
+     * 
+     * @author Vlad Dumitriu
      */
     private Player getPitOwner(int pitIndex)
     {
@@ -87,6 +95,8 @@ public class GameModel
      * 
      * @param pitIndex the index of the pit
      * @return true if move can be made, false otherwise
+     * 
+     * @author Vlad Dumitriu
      */
     public boolean canMakeMove(int pitIndex)
     {
@@ -113,6 +123,8 @@ public class GameModel
 
     /**
      * Give the turn to the next Player.
+     * 
+     * @author Vlad Dumitriu
      */
     private void nextTurn()
     {
@@ -131,6 +143,8 @@ public class GameModel
      * 
      * @param pitIndex
      * @return if the given pit is a mancala or not.
+     * 
+     * @author Vlad Dumitriu
      */
     private boolean isMancala(int pitIndex)
     {
@@ -143,6 +157,8 @@ public class GameModel
      * Pre-Condition: is not a Mancala
      * @param pitIndex
      * @return the pit index of opposite pit
+     * 
+     * @author Vlad Dumitriu
      */
     private int oppositePit(int pitIndex)
     {
@@ -153,6 +169,8 @@ public class GameModel
 
     /**
      * Collects the stones at the end of the game and puts them in the Mancalas.
+     * 
+     * @author Vlad Dumitriu
      */
     private void collectStones()
     {
@@ -176,6 +194,8 @@ public class GameModel
      * Checks if the game is over. This is private,
      * the viewers should check via currentStatus.
      * @return whether the game is over or not
+     * 
+     * @author Vlad Dumitriu
      */
     private boolean isOver()
     {
@@ -202,6 +222,8 @@ public class GameModel
      * Pre-condition: is a valid move.
      * 
      * @param pitIndex - the pit
+     * 
+     * @author Daniel DeMicco, Vlad Dumitriu
      */
     public void makeMove(int pitIndex)
     {
@@ -290,6 +312,8 @@ public class GameModel
     /**
      * Sets the number of stones to be in each pit originally. Called when the game starts after button is clicked.
      * @param num the number of stones
+     * 
+     * @author Vlad Dumitriu
      */
     public void setNumStones(int num)
     {
@@ -303,6 +327,8 @@ public class GameModel
     /**
      * Sets the current state of the game
      * @param state the state
+     * 
+     * @author Vlad Dumitriu
      */
     public void setCurrentState(String state)
     {
@@ -345,6 +371,8 @@ public class GameModel
      * Return the score of the requested player.
      * @param who requester player
      * @return the score
+     * 
+     * @author Vlad Dumitriu
      */
     public int getScore(GameModel.Player who)
     {
@@ -357,6 +385,8 @@ public class GameModel
 
     /**
      * Undos the last move, if possible.
+     * 
+     * @author Daniel DeMicco, Vlad Dumitriu
      */
     public void undo()
     {
@@ -414,6 +444,7 @@ public class GameModel
 
     /**
      * Saves the board before the move occurs
+     * @author Daniel DeMicco
      */
     public void save()
     {

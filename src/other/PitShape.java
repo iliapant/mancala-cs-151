@@ -13,6 +13,7 @@ import java.awt.geom.Point2D;
  *  Class to represent a pit object.
  *  It can be either regular pit or a Mancala.
  *
+ * @author Daniel DeMicco, Vlad Dumitriu
  */
 public class PitShape
 {
@@ -22,6 +23,8 @@ public class PitShape
      * @param y the y position
      * @param width the width
      * @param c the color
+     * 
+     * @author Daniel DeMicco
      */
     public PitShape(int x, int y, int width, int height, Color c)
     {
@@ -35,6 +38,8 @@ public class PitShape
     /**
      * Draws the Pit shape
      * @param g the graphics
+     * 
+     * @author Daniel DeMicco
      */
     public void draw(Graphics2D g)
     {
@@ -45,6 +50,8 @@ public class PitShape
     /**
      * Fills the composite shape
      * @param g the graphics
+     * 
+     * @author Daniel DeMicco, Vlad Dumitriu
      */
     public void fill(Graphics2D g)
     {
@@ -86,6 +93,8 @@ public class PitShape
      * Checks if the point is contained in the pit
      * @param aPoint the point x, y
      * @return true if it contains the point
+     * 
+     * @author Daniel DeMicco
      */
     public boolean contains(Point2D aPoint)
     {
