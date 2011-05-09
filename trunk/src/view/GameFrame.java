@@ -17,11 +17,14 @@ import model.GameModel;
 /**
  * Frame to hold everything.
  *
+ * @author Daniel DeMicco, Vlad Dumitriu
  */
 public class GameFrame
 {
     /**
      * Creates a new GameFrame
+     * 
+     * @author Daniel DeMicco
      */
     public GameFrame()
     {
@@ -135,6 +138,8 @@ public class GameFrame
     /**
      * sets the buttons on the frame visible or not depending on if the game is in session
      * @param visible true if visible
+     * 
+     * @author Daniel DeMicco, Vlad Dumitriu
      */
     public void setButtonVisible(boolean visible, JPanel p)
     {
